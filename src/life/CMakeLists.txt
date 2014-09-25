@@ -1,9 +1,8 @@
+project(life)
 include(FindPkgConfig)
 pkg_search_module(SDL2 REQUIRED sdl2)
 
-add_subdirectory(life)
-
-add_executable(game main.cpp)
+add_library(life kernel.cpp)
 
 INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/lib/glm ${CMAKE_SOURCE_DIR}/include)
-TARGET_LINK_LIBRARIES(game ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} life)
+TARGET_LINK_LIBRARIES(life ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES})

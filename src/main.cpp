@@ -1,9 +1,8 @@
 #include <iostream>
-#include "glm/vec3.hpp"
+#include "life/kernel.h"
 
 int main()
 {
-    glm::vec3 example = glm::vec3(0.0f, 1.0f, 2.0f);
-    std::cout << "Hello World: " << example.y << std::endl;
+    life::kernel k;
     return 0;
 }
