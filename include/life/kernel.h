@@ -17,8 +17,14 @@ namespace life
         /// Number of services currently in the kernel
         int service_count( ) const { return _services.size(); }
 
+        /// Add a service to the running kernel
+        bool add_service( service* );
+
+        std::list<service*>::const_iterator cbegin( ) { return _services.cbegin(); }
+        std::list<service*>::const_iterator cend( ) { return _services.cend(); }
+
     private:
-        std::list< std::unique_ptr<service> > _services;
+        std::list<service*> _services;
     };
 }
 
