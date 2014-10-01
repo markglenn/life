@@ -8,6 +8,7 @@ include_directories(${gtest_SOURCE_DIR}/include ${gmock_SOURCE_DIR}/include ${CM
 
 set(test_SOURCE
   life/kernel_tests.cpp
+  life/gametime_tests.cpp
 )
 
 add_executable(run_tests ${test_SOURCE})
