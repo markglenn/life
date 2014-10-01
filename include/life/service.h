@@ -1,6 +1,8 @@
 #ifndef _LIFE_SERVICE_H_
 #define _LIFE_SERVICE_H_
 
+#include "life/gametime.h"
+
 namespace life
 {
     class service
@@ -9,9 +11,14 @@ namespace life
         service( int priority ) : _priority( priority ) {}
         virtual ~service( ){ }
 
-        /// Get the priority of the service for inserting into the kernel
-        virtual int get_priority( ) const { return _priority; }
+        virtual std::string name( ) const = 0;
 
+        /// Get the priority of the service for inserting into the kernel
+        int priority( ) const { return _priority; }
+
+        /// Update the service with the current time
+        virtual bool update( const life::gametime& ) = 0;
+        
     private:
         int _priority;
     };

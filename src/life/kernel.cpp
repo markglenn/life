@@ -27,7 +27,7 @@ namespace life
         auto pos = std::find_if(
             _services.begin(),
             _services.end(),
-            [=]( auto s ) -> bool { return s->get_priority() > service->get_priority(); }
+            [=]( auto s ) -> bool { return s->priority() > service->priority(); }
         );
 
         _services.insert(pos, service);
