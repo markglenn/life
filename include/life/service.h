@@ -14,13 +14,13 @@ namespace life
         virtual std::string name( ) const = 0;
 
         /// Get the priority of the service for inserting into the kernel
-        int priority( ) const { return _priority; }
+        unsigned int priority( ) const { return _priority; }
 
         /// Update the service with the current time
         virtual bool update( const life::gametime& ) = 0;
         
     private:
-        int _priority;
+        unsigned int _priority;
     };
 }
 

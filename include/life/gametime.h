@@ -9,7 +9,6 @@ namespace life
     {
     public:
         gametime( );
-        virtual ~gametime( ) {}
 
         double total_time( ) const
         {
@@ -24,6 +23,7 @@ namespace life
         void update( );
 
     private:
+
         std::chrono::high_resolution_clock::time_point _start_time;
         std::chrono::high_resolution_clock::time_point _current_time;
         double _total_time;

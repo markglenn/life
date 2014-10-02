@@ -1,5 +1,6 @@
 include(FindPkgConfig)
 pkg_search_module(SDL2 REQUIRED sdl2)
+FIND_PACKAGE( Boost REQUIRED )
 
 add_subdirectory(life)
 

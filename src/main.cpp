@@ -1,6 +1,7 @@
 #include <iostream>
 #include "life/kernel.h"
 #include "life/gametime.h"
+#include "life/folder_archive.h"
 
 int main()
 {
