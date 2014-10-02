@@ -1,27 +1,51 @@
 #include <life/folder_archive.h>
 #include <boost/filesystem.hpp>
+#include <boost/filesystem/fstream.hpp>
+#include <fstream>
+#include <memory>
 
 namespace life
 {
+    //////////////////////////////////////////////////////////////////////////
     folder_archive::folder_archive( const std::string& folder )
+        : _folder( folder )
+    //////////////////////////////////////////////////////////////////////////
     {
-
     }
 
-    folder_archive::~folder_archive( ) {}
+    //////////////////////////////////////////////////////////////////////////
+    folder_archive::~folder_archive( )
+    //////////////////////////////////////////////////////////////////////////
+    {
+    }
 
+    //////////////////////////////////////////////////////////////////////////
     std::string folder_archive::name( ) const
+    //////////////////////////////////////////////////////////////////////////
     {
-        return "Test";
+        return _folder;
     }
 
-    bool folder_archive::open( const std::string& filename, std::ifstream& file )
+    //////////////////////////////////////////////////////////////////////////
+    std::unique_ptr<std::istream> folder_archive::open( const std::string& filename )
+    //////////////////////////////////////////////////////////////////////////
     {
-        return false;
+        auto path = boost::filesystem::path( _folder ) / filename;
+        auto file = new boost::filesystem::ifstream( path );
+
+        if ( file->is_open() )
+            return std::unique_ptr<std::istream>( file );
+        
+        delete file;
+        return NULL;
     }
 
+    //////////////////////////////////////////////////////////////////////////
     bool folder_archive::exists( const std::string& filename )
+    //////////////////////////////////////////////////////////////////////////
     {
-        return false;
+        boost::filesystem::path path( _folder );
+
+        return boost::filesystem::exists( path / filename );
     }
 }
