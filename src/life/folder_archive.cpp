@@ -4,13 +4,20 @@
 #include <fstream>
 #include <memory>
 
+namespace boostfs = boost::filesystem;
+using std::unique_ptr;
+
 namespace life
 {
     //////////////////////////////////////////////////////////////////////////
     folder_archive::folder_archive( const std::string& folder )
-        : _folder( folder )
     //////////////////////////////////////////////////////////////////////////
     {
+        boost::system::error_code error_code;
+        _folder = boostfs::canonical( folder, error_code ).native( );
+
+        if ( error_code )
+            throw file_exception( error_code.message() );
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -27,25 +34,24 @@ namespace life
     }
 
     //////////////////////////////////////////////////////////////////////////
-    std::unique_ptr<std::istream> folder_archive::open( const std::string& filename )
+    unique_ptr<std::istream> folder_archive::open( const std::string& filename )
     //////////////////////////////////////////////////////////////////////////
     {
-        auto path = boost::filesystem::path( _folder ) / filename;
-        auto file = new boost::filesystem::ifstream( path );
+        auto path = boostfs::path( _folder ) / filename;
+        auto file = unique_ptr<std::ifstream>( new boostfs::ifstream( path ) );
 
         if ( file->is_open() )
-            return std::unique_ptr<std::istream>( file );
-        
-        delete file;
-        return NULL;
+            return unique_ptr<std::istream>( std::move( file ) );
+
+        throw file_exception( "No such file or directory" );
     }
 
     //////////////////////////////////////////////////////////////////////////
     bool folder_archive::exists( const std::string& filename )
     //////////////////////////////////////////////////////////////////////////
     {
-        boost::filesystem::path path( _folder );
+        boostfs::path path( _folder );
 
-        return boost::filesystem::exists( path / filename );
+        return boostfs::exists( path / filename );
     }
 }
