@@ -18,6 +18,9 @@ namespace life
 
         /// Update the service with the current time
         virtual bool update( const life::gametime& ) = 0;
+
+        virtual bool start( ) { return true; }
+        virtual void stop( ) { }
         
     private:
         const unsigned int _priority;
