@@ -8,3 +8,10 @@ add_executable(game main.cpp)
 
 INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/lib/glm ${CMAKE_SOURCE_DIR}/include)
 TARGET_LINK_LIBRARIES(game ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${Boost_LIBRARIES} life)
+
+set_source_files_properties( tags PROPERTIES GENERATED true )
+add_custom_target(tags
+  COMMAND ctags -R --extra=+f+q src include
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+)
+add_dependencies(game tags)

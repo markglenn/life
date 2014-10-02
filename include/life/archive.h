@@ -5,6 +5,15 @@
 
 namespace life
 {
+    class archive
+    {
+    public:
+        virtual ~archive( ) { }
+        virtual std::string name( ) const = 0;
+        virtual std::unique_ptr<std::istream> open( const std::string& filename ) const = 0;
+        virtual bool exists( const std::string& filename ) const = 0;
+    };
+
     class file_exception : public std::exception
     {
     public:
@@ -20,14 +29,6 @@ namespace life
         std::string error_message;
     };
 
-    class archive
-    {
-    public:
-        virtual ~archive( ) { }
-        virtual std::string name( ) const = 0;
-        virtual std::unique_ptr<std::istream> open( const std::string& filename ) const = 0;
-        virtual bool exists( const std::string& filename ) const = 0;
-    };
 }
 
 #endif // _LIFE_ARCHIVE_H_

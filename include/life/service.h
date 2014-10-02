@@ -20,7 +20,7 @@ namespace life
         virtual bool update( const life::gametime& ) = 0;
         
     private:
-        unsigned int _priority;
+        const unsigned int _priority;
     };
 }
 

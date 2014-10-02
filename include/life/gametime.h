@@ -24,7 +24,9 @@ namespace life
 
     private:
 
-        std::chrono::high_resolution_clock::time_point _start_time;
+        // Time that the clock was created
+        const std::chrono::high_resolution_clock::time_point _start_time;
+
         std::chrono::high_resolution_clock::time_point _current_time;
         double _total_time;
         double _current_step;
