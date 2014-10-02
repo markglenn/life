@@ -10,10 +10,14 @@ namespace life
     public:
         folder_archive( const std::string& folder );
 
-        virtual ~folder_archive( );
-        virtual std::string name( ) const;
-        virtual std::unique_ptr<std::istream> open( const std::string& filename );
-        virtual bool exists( const std::string& filename );
+        virtual ~folder_archive( ) { }
+        virtual std::string name( ) const
+        {
+            return _folder;
+        }
+
+        virtual std::unique_ptr<std::istream> open( const std::string& filename ) const;
+        virtual bool exists( const std::string& filename ) const;
 
     private:
 

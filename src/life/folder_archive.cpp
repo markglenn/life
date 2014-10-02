@@ -21,37 +21,22 @@ namespace life
     }
 
     //////////////////////////////////////////////////////////////////////////
-    folder_archive::~folder_archive( )
-    //////////////////////////////////////////////////////////////////////////
-    {
-    }
-
-    //////////////////////////////////////////////////////////////////////////
-    std::string folder_archive::name( ) const
-    //////////////////////////////////////////////////////////////////////////
-    {
-        return _folder;
-    }
-
-    //////////////////////////////////////////////////////////////////////////
-    unique_ptr<std::istream> folder_archive::open( const std::string& filename )
+    unique_ptr<std::istream> folder_archive::open( const std::string& filename ) const
     //////////////////////////////////////////////////////////////////////////
     {
         auto path = boostfs::path( _folder ) / filename;
         auto file = unique_ptr<std::ifstream>( new boostfs::ifstream( path ) );
 
-        if ( file->is_open() )
-            return unique_ptr<std::istream>( std::move( file ) );
+        if ( !file->is_open() )
+            throw file_exception( "No such file or directory" );
 
-        throw file_exception( "No such file or directory" );
+        return unique_ptr<std::istream>( std::move( file ) );
     }
 
     //////////////////////////////////////////////////////////////////////////
-    bool folder_archive::exists( const std::string& filename )
+    bool folder_archive::exists( const std::string& filename ) const
     //////////////////////////////////////////////////////////////////////////
     {
-        boostfs::path path( _folder );
-
-        return boostfs::exists( path / filename );
+        return boostfs::exists( boostfs::path( _folder ) / filename );
     }
 }

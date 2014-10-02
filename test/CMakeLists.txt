@@ -10,6 +10,7 @@ set(test_SOURCE
   life/kernel_tests.cpp
   life/gametime_tests.cpp
   life/folder_archive_tests.cpp
+  life/composite_archive_tests.cpp
 )
 
 add_executable(run_tests ${test_SOURCE})
