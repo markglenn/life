@@ -39,4 +39,32 @@ namespace life
 
         return true;
     }
+
+    //////////////////////////////////////////////////////////////////////////
+    void kernel::run( )
+    //////////////////////////////////////////////////////////////////////////
+    {
+        life::gametime gametime;
+
+        while( _services.size() > 0 )
+        {
+            for( auto i = _services.cbegin(); i != _services.cend(); )
+            {
+                // Update the time to the latest time step
+                gametime.update( );
+
+                if( ( *i )->update( gametime ) )
+                {
+                    // The service update is still alive, increment the iterator
+                    ++i;
+                }
+                else
+                {
+                    // Service stopped, remove it
+                    delete *i;
+                    i = _services.erase( i );
+                }
+            }
+        }
+    }
 }

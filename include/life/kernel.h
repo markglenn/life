@@ -23,6 +23,8 @@ namespace life
         std::list<service*>::const_iterator cbegin( ) const { return _services.cbegin(); }
         std::list<service*>::const_iterator cend( ) const { return _services.cend(); }
 
+        void run( );
+
     private:
         std::list<service*> _services;
     };
