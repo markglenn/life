@@ -104,5 +104,23 @@ namespace kernel_run
 
 namespace kernel_stop
 {
-    
+    life::kernel* _kernel;
+    bool stop_kernel( )
+    {
+        _kernel->stop();
+        return true;
+    }
+
+    TEST(kernel_stop, stops_all_services) {
+        life::kernel kernel;
+        _kernel = &kernel;
+
+        auto service = new mock_service( 1 );
+
+        EXPECT_CALL( *service, update( _ ) )
+            .WillOnce( InvokeWithoutArgs( stop_kernel ) );
+
+        kernel.add_service( service );
+        kernel.run( );
+    }
 }

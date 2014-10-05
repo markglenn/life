@@ -5,7 +5,7 @@
 namespace life
 {
     //////////////////////////////////////////////////////////////////////////
-    kernel::kernel( )
+    kernel::kernel( ) : _is_running( true )
     //////////////////////////////////////////////////////////////////////////
     {
 
@@ -46,7 +46,7 @@ namespace life
     {
         life::gametime gametime;
 
-        while( _services.size() > 0 )
+        while( _is_running )
         {
             for( auto i = _services.cbegin(); i != _services.cend(); )
             {
@@ -65,6 +65,10 @@ namespace life
                     i = _services.erase( i );
                 }
             }
+
+            // Check if any services are still running
+            if ( _is_running )
+                _is_running = _services.size( ) > 0;
         }
     }
 }

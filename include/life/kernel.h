@@ -20,6 +20,9 @@ namespace life
         /// Add a service to the running kernel
         bool add_service( service* );
 
+        /// Stop all services in the kernel
+        void stop( ) { _is_running = false; }
+
         std::list<service*>::const_iterator cbegin( ) const { return _services.cbegin(); }
         std::list<service*>::const_iterator cend( ) const { return _services.cend(); }
 
@@ -27,6 +30,7 @@ namespace life
 
     private:
         std::list<service*> _services;
+        bool _is_running;
     };
 }
 
