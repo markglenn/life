@@ -10,13 +10,13 @@ public:
     mock_service( int priority ) : service( priority )
     {
         // Default values for mock
-        ON_CALL(*this, start()).WillByDefault(Return(true));
+        ON_CALL(*this, start(_)).WillByDefault(Return(true));
         ON_CALL(*this, update(_)).WillByDefault(Return(false));
     }
 
     MOCK_METHOD1(update, bool (const life::gametime& gametime));
     MOCK_CONST_METHOD0(name, std::string());
-    MOCK_METHOD0(start, bool());
+    MOCK_METHOD1(start, bool( life::kernel* ));
     MOCK_METHOD0(stop, void());
 };
 
@@ -54,7 +54,7 @@ namespace kernel_add_service
         life::kernel kernel;
         auto service = new mock_service(1);
 
-        EXPECT_CALL( *service, start())
+        EXPECT_CALL( *service, start(_))
             .WillOnce(Return(true));
 
         kernel.add_service( service );
@@ -64,7 +64,7 @@ namespace kernel_add_service
         life::kernel kernel;
         auto service = new mock_service(1);
 
-        EXPECT_CALL( *service, start())
+        EXPECT_CALL( *service, start(_))
             .WillOnce(Return(true));
 
         ASSERT_TRUE( kernel.add_service( service ) );
@@ -75,7 +75,7 @@ namespace kernel_add_service
         life::kernel kernel;
         auto service = new mock_service(1);
 
-        EXPECT_CALL( *service, start())
+        EXPECT_CALL( *service, start(_))
             .WillOnce(Return(false));
 
         ASSERT_FALSE( kernel.add_service( service ) );
@@ -91,7 +91,7 @@ namespace kernel_run
         life::kernel kernel;
         auto service = new mock_service(1);
 
-        EXPECT_CALL( *service, start()).WillOnce(Return(true));
+        EXPECT_CALL( *service, start(_)).WillOnce(Return(true));
 
         kernel.add_service( service );
 
@@ -100,4 +100,9 @@ namespace kernel_run
 
         kernel.run( );
     }
+}
+
+namespace kernel_stop
+{
+    
 }

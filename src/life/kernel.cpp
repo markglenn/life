@@ -23,7 +23,7 @@ namespace life
     bool kernel::add_service( service* service )
     //////////////////////////////////////////////////////////////////////////
     {
-        if (!service->start( ) )
+        if (!service->start( this ) )
             return false;
 
         int priority = service->priority( );

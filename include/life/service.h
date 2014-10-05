@@ -5,6 +5,8 @@
 
 namespace life
 {
+    class kernel;
+
     class service
     {
     public:
@@ -19,7 +21,7 @@ namespace life
         /// Update the service with the current time
         virtual bool update( const life::gametime& ) = 0;
 
-        virtual bool start( ) { return true; }
+        virtual bool start( kernel* ) { return true; }
         virtual void stop( ) { }
         
     private:
