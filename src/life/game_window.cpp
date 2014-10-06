@@ -32,7 +32,7 @@ namespace life
             return false;
 
         _window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                640, 480, SDL_WINDOW_SHOWN );
+                640, 480, SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI );
 
         if( _window == NULL )
             return false;
