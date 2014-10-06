@@ -21,7 +21,7 @@ namespace life
 
         /// Update the service with the current time
         virtual bool update( const life::gametime& );
-        virtual bool start( );
+        virtual bool start( kernel* kernel );
         virtual void stop( );
 
     private:

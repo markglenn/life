@@ -8,6 +8,7 @@ add_library(life
   folder_archive.cpp
   composite_archive.cpp
   game_window.cpp
+  input_handler.cpp
 )
 
 INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/lib/glm ${CMAKE_SOURCE_DIR}/include)

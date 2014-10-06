@@ -2,6 +2,7 @@
 #define _LIFE_SERVICE_H_
 
 #include "life/gametime.h"
+#include <string>
 
 namespace life
 {

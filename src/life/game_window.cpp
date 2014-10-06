@@ -1,5 +1,6 @@
 #include <life/game_window.h>
 #include <SDL.h>
+#include <iostream>
 
 namespace life
 {
@@ -23,19 +24,21 @@ namespace life
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    bool game_window::start( )
+    bool game_window::start( kernel * kernel )
     ///////////////////////////////////////////////////////////////////////////
     {
+        std::cout << SDL_GetError() << std::endl;
         if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
             return false;
 
         _window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                320, 240, SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI );
+                640, 480, SDL_WINDOW_SHOWN );
 
         if( _window == NULL )
             return false;
 
-        SDL_Delay( 1000 );
+        SDL_GetWindowSurface( _window );
+
         return true;
     }
 

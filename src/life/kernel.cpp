@@ -1,6 +1,7 @@
 #include "life/kernel.h"
 
 #include <memory>
+#include <iostream>
 
 namespace life
 {
@@ -16,7 +17,10 @@ namespace life
     //////////////////////////////////////////////////////////////////////////
     {
         for( auto service : _services )
+        {
+            service->stop( );
             delete service;
+        }
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -24,7 +28,10 @@ namespace life
     //////////////////////////////////////////////////////////////////////////
     {
         if (!service->start( this ) )
+        {
+            std::cout << "Service: " << service->name() << " failed to start" << std::endl;
             return false;
+        }
 
         int priority = service->priority( );
 
@@ -36,6 +43,8 @@ namespace life
         );
 
         _services.insert(pos, service);
+
+        std::cout << "Service: " << service->name() << " started" << std::endl;
 
         return true;
     }
@@ -61,6 +70,7 @@ namespace life
                 else
                 {
                     // Service stopped, remove it
+                    ( *i )->stop( );
                     delete *i;
                     i = _services.erase( i );
                 }
