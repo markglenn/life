@@ -27,7 +27,7 @@ namespace life
         }
 
     private:
-        std::string error_message;
+        const std::string error_message;
     };
 
 }

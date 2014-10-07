@@ -15,11 +15,14 @@ namespace life
         virtual ~kernel();
 
         /// Number of services currently in the kernel
-        int service_count( ) const { return _services.size(); }
+        auto service_count( ) const { return _services.size(); }
 
         /// Add a service to the running kernel
-        bool add_service( service* );
         bool add_service( std::unique_ptr<service> );
+        bool add_service( service* service )
+        {
+            return add_service( std::unique_ptr<life::service>( service ) );
+        }
 
         /// Stop all services in the kernel
         void stop( ) { _is_running = false; }

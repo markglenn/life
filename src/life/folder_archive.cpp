@@ -5,6 +5,7 @@
 #include <memory>
 
 namespace boostfs = boost::filesystem;
+using boost::system::error_code;
 using std::unique_ptr;
 
 namespace life
@@ -13,7 +14,7 @@ namespace life
     folder_archive::folder_archive( const std::string& folder )
     //////////////////////////////////////////////////////////////////////////
     {
-        boost::system::error_code error_code;
+        error_code error_code;
         _folder = boostfs::canonical( folder, error_code ).native( );
 
         if ( error_code )
@@ -25,13 +26,13 @@ namespace life
             std::ios_base::openmode mode ) const
     //////////////////////////////////////////////////////////////////////////
     {
-        auto path = boostfs::path( _folder ) / filename;
+        auto path = boostfs::path{ _folder } / filename;
         auto file = std::make_unique<boostfs::ifstream>( path );
 
         if ( !file->is_open() )
             throw file_exception( "No such file or directory" );
 
-        return unique_ptr<std::istream>( std::move( file ) );
+        return unique_ptr<std::istream>{ std::move( file ) };
     }
 
     //////////////////////////////////////////////////////////////////////////

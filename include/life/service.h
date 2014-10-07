@@ -12,12 +12,9 @@ namespace life
     {
     public:
         service( const std::string& service_name, int priority ) :
-            _service_name( service_name ), _priority( priority ) { }
+            _service_name( service_name ), _priority( priority ), _kernel( 0 ) { }
 
-        virtual ~service( ){ }
-
-        /// Get the priority of the service for inserting into the kernel
-        unsigned int priority( ) const { return _priority; }
+        virtual ~service( ) { }
 
         /// Update the service with the current time
         virtual bool update( const life::gametime& ) = 0;
@@ -25,14 +22,17 @@ namespace life
         virtual bool start( ) { return true; }
         virtual void stop( ) { }
         
+        /// Get the priority of the service for inserting into the kernel
+        auto priority( ) const { return _priority; }
+
         /// Set the kernel owner for this service
         void set_owner( kernel* kernel ) { _kernel = kernel; }
 
         /// Get the owning kernel
-        kernel* owner( ) { return _kernel; }
+        auto owner( ) { return _kernel; }
         
         /// Get the name of the service
-        const std::string& name( ) const { return _service_name; }
+        const auto name( ) const { return _service_name; }
 
     private:
 
