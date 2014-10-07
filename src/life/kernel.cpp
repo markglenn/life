@@ -16,22 +16,16 @@ namespace life
     kernel::~kernel( )
     //////////////////////////////////////////////////////////////////////////
     {
-        for( auto service : _services )
-        {
+        for( auto& service : _services )
             service->stop( );
-            delete service;
-        }
     }
 
     //////////////////////////////////////////////////////////////////////////
-    bool kernel::add_service( service* service )
+    bool kernel::add_service( std::unique_ptr<service> service )
     //////////////////////////////////////////////////////////////////////////
     {
         if (!service->start( this ) )
-        {
-            std::cout << "Service: " << service->name() << " failed to start" << std::endl;
             return false;
-        }
 
         int priority = service->priority( );
 
@@ -39,14 +33,20 @@ namespace life
         auto pos = std::find_if(
             _services.begin(),
             _services.end(),
-            [priority]( auto s ) -> bool { return s->priority() > priority; }
+            [priority]( auto& s ) -> bool { return s->priority() > priority; }
         );
 
-        _services.insert(pos, service);
-
-        std::cout << "Service: " << service->name() << " started" << std::endl;
+        _services.insert(pos, std::move( service ) );
 
         return true;
+
+    }
+
+    //////////////////////////////////////////////////////////////////////////
+    bool kernel::add_service( service* service )
+    //////////////////////////////////////////////////////////////////////////
+    {
+        return add_service( std::unique_ptr<life::service>( service ) );
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -71,7 +71,6 @@ namespace life
                 {
                     // Service stopped, remove it
                     ( *i )->stop( );
-                    delete *i;
                     i = _services.erase( i );
                 }
             }

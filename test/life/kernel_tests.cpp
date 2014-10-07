@@ -12,6 +12,7 @@ public:
         // Default values for mock
         ON_CALL(*this, start(_)).WillByDefault(Return(true));
         ON_CALL(*this, update(_)).WillByDefault(Return(false));
+        ON_CALL(*this, name()).WillByDefault(Return("Mock Service"));
     }
 
     MOCK_METHOD1(update, bool (const life::gametime& gametime));
@@ -34,15 +35,15 @@ namespace kernel_add_service
     TEST(kernel_add_service, adds_service_to_list) {
         life::kernel kernel;
 
-        kernel.add_service( new mock_service( 1 ) );
+        kernel.add_service( new NiceMock<mock_service>( 1 ) );
         EXPECT_EQ(1, (*kernel.cbegin())->priority());
     }
 
     TEST(kernel_add_service, adds_service_to_list_by_priority) {
         life::kernel kernel;
 
-        kernel.add_service( new mock_service( 2 ) );
-        kernel.add_service( new mock_service( 1 ) );
+        kernel.add_service( new NiceMock<mock_service>( 2 ) );
+        kernel.add_service( new NiceMock<mock_service>( 1 ) );
 
         auto result = kernel.cbegin();
 
@@ -52,7 +53,7 @@ namespace kernel_add_service
 
     TEST(kernel_add_service, runs_start_on_service) {
         life::kernel kernel;
-        auto service = new mock_service(1);
+        auto service = new NiceMock<mock_service>(1);
 
         EXPECT_CALL( *service, start(_))
             .WillOnce(Return(true));
@@ -62,7 +63,7 @@ namespace kernel_add_service
 
     TEST(kernel_add_service, adds_service_if_start_returns_true) {
         life::kernel kernel;
-        auto service = new mock_service(1);
+        auto service = new NiceMock<mock_service>(1);
 
         EXPECT_CALL( *service, start(_))
             .WillOnce(Return(true));
@@ -73,15 +74,13 @@ namespace kernel_add_service
 
     TEST(kernel_add_service, does_not_add_service_if_start_returns_false) {
         life::kernel kernel;
-        auto service = new mock_service(1);
+        auto service = new NiceMock<mock_service>(1);
 
         EXPECT_CALL( *service, start(_))
             .WillOnce(Return(false));
 
         ASSERT_FALSE( kernel.add_service( service ) );
         EXPECT_EQ(0, kernel.service_count());
-
-        delete service;
     }
 }
 
@@ -89,9 +88,10 @@ namespace kernel_run
 {
     TEST(kernel_run, calls_update_on_service) {
         life::kernel kernel;
-        auto service = new mock_service(1);
+        auto service = new NiceMock<mock_service>(1);
 
         EXPECT_CALL( *service, start(_)).WillOnce(Return(true));
+        EXPECT_CALL( *service, stop());
 
         kernel.add_service( service );
 
@@ -115,10 +115,12 @@ namespace kernel_stop
         life::kernel kernel;
         _kernel = &kernel;
 
-        auto service = new mock_service( 1 );
+        auto service = new NiceMock<mock_service>( 1 );
 
         EXPECT_CALL( *service, update( _ ) )
             .WillOnce( InvokeWithoutArgs( stop_kernel ) );
+
+        EXPECT_CALL( *service, stop( ) );
 
         kernel.add_service( service );
         kernel.run( );

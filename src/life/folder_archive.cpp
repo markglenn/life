@@ -26,7 +26,7 @@ namespace life
     //////////////////////////////////////////////////////////////////////////
     {
         auto path = boostfs::path( _folder ) / filename;
-        auto file = unique_ptr<std::ifstream>( new boostfs::ifstream( path ) );
+        auto file = std::make_unique<boostfs::ifstream>( path );
 
         if ( !file->is_open() )
             throw file_exception( "No such file or directory" );

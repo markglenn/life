@@ -19,17 +19,18 @@ namespace life
 
         /// Add a service to the running kernel
         bool add_service( service* );
+        bool add_service( std::unique_ptr<service> );
 
         /// Stop all services in the kernel
         void stop( ) { _is_running = false; }
 
-        std::list<service*>::const_iterator cbegin( ) const { return _services.cbegin(); }
-        std::list<service*>::const_iterator cend( ) const { return _services.cend(); }
+        std::list< std::unique_ptr<service> >::const_iterator cbegin( ) const { return _services.cbegin(); }
+        std::list< std::unique_ptr<service> >::const_iterator cend( ) const { return _services.cend(); }
 
         void run( );
 
     private:
-        std::list<service*> _services;
+        std::list< std::unique_ptr<service> > _services;
         bool _is_running;
     };
 }
