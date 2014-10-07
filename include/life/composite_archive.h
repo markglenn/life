@@ -27,7 +27,6 @@ namespace life
     private:
         std::list< std::unique_ptr<archive> > _archives;
     };
-
 }
 
 #endif // _LIFE_COMPOSITE_ARCHIVE_H_
