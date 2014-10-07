@@ -33,7 +33,7 @@ namespace kernel_add_service
     TEST(kernel_add_service, adds_service_to_list) {
         life::kernel kernel;
 
-        kernel.add_service( new NiceMock<mock_service>( 1 ) );
+        kernel.add_service( new NiceMock<mock_service>{ 1 } );
 
         for( auto& service : kernel )
             EXPECT_EQ(1, service->priority() );
@@ -42,8 +42,8 @@ namespace kernel_add_service
     TEST(kernel_add_service, adds_service_to_list_by_priority) {
         life::kernel kernel;
 
-        kernel.add_service( new NiceMock<mock_service>( 2 ) );
-        kernel.add_service( new NiceMock<mock_service>( 1 ) );
+        kernel.add_service( new NiceMock<mock_service>{ 2 } );
+        kernel.add_service( new NiceMock<mock_service>{ 1 } );
 
         auto result = kernel.cbegin();
 
@@ -53,7 +53,7 @@ namespace kernel_add_service
 
     TEST(kernel_add_service, runs_start_on_service) {
         life::kernel kernel;
-        auto service = new NiceMock<mock_service>(1);
+        auto service = new NiceMock<mock_service>{1};
 
         EXPECT_CALL( *service, start())
             .WillOnce(Return(true));
@@ -63,7 +63,7 @@ namespace kernel_add_service
 
     TEST(kernel_add_service, adds_service_if_start_returns_true) {
         life::kernel kernel;
-        auto service = new NiceMock<mock_service>(1);
+        auto service = new NiceMock<mock_service>{1};
 
         EXPECT_CALL( *service, start())
             .WillOnce(Return(true));
@@ -74,7 +74,7 @@ namespace kernel_add_service
 
     TEST(kernel_add_service, does_not_add_service_if_start_returns_false) {
         life::kernel kernel;
-        auto service = new NiceMock<mock_service>(1);
+        auto service = new NiceMock<mock_service>{ 1 };
 
         EXPECT_CALL( *service, start())
             .WillOnce(Return(false));
@@ -88,7 +88,7 @@ namespace kernel_run
 {
     TEST(kernel_run, calls_update_on_service) {
         life::kernel kernel;
-        auto service = new NiceMock<mock_service>(1);
+        auto service = new NiceMock<mock_service>{ 1 };
 
         EXPECT_CALL( *service, start()).WillOnce(Return(true));
         EXPECT_CALL( *service, stop());
@@ -115,7 +115,7 @@ namespace kernel_stop
         life::kernel kernel;
         _kernel = &kernel;
 
-        auto service = new NiceMock<mock_service>( 1 );
+        auto service = new NiceMock<mock_service>{ 1 };
 
         EXPECT_CALL( *service, update( _ ) )
             .WillOnce( InvokeWithoutArgs( stop_kernel ) );

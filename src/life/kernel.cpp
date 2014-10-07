@@ -28,7 +28,7 @@ namespace life
         if (!service->start( ) )
             return false;
 
-        int priority = service->priority( );
+        auto priority = service->priority( );
 
         // Find where to put the service
         auto pos = std::find_if(

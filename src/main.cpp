@@ -7,8 +7,8 @@ int main()
 {
     life::kernel k;
 
-    k.add_service( new life::game_window( ) );
-    k.add_service( new life::input_handler( ) );
+    k.add_service( new life::game_window{ } );
+    k.add_service( new life::input_handler{ } );
 
     k.run( );
 

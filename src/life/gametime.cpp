@@ -2,7 +2,7 @@
 
 using namespace std::chrono;
 
-constexpr double microseconds_in_seconds = 1000.0 * 1000.0;
+constexpr auto microseconds_in_seconds = 1000.0 * 1000.0;
 
 namespace life
 {
@@ -19,7 +19,7 @@ namespace life
     void gametime::update( )
     //////////////////////////////////////////////////////////////////////////
     {
-        double previous_time = _total_time;
+        auto previous_time = _total_time;
 
         // Update the current time
         _current_time = high_resolution_clock::now( );
