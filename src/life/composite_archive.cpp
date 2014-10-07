@@ -16,7 +16,8 @@ namespace life
         _archives.push_back( std::move( archive ) );
     }
     ///////////////////////////////////////////////////////////////////////////
-    std::unique_ptr<std::istream> composite_archive::open( const std::string& filename ) const
+    std::unique_ptr<std::istream> composite_archive::open( const std::string& filename,
+            std::ios_base::openmode mode ) const
     ///////////////////////////////////////////////////////////////////////////
     {
         for( const auto& archive : _archives )

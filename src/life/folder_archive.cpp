@@ -21,7 +21,8 @@ namespace life
     }
 
     //////////////////////////////////////////////////////////////////////////
-    unique_ptr<std::istream> folder_archive::open( const std::string& filename ) const
+    unique_ptr<std::istream> folder_archive::open( const std::string& filename,
+            std::ios_base::openmode mode ) const
     //////////////////////////////////////////////////////////////////////////
     {
         auto path = boostfs::path( _folder ) / filename;

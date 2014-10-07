@@ -20,7 +20,8 @@ namespace life
             return "Composite archive";
         }
 
-        virtual std::unique_ptr<std::istream> open( const std::string& filename ) const;
+        virtual std::unique_ptr<std::istream> open( const std::string& filename,
+            std::ios_base::openmode mode = std::ios_base::in ) const;
         virtual bool exists( const std::string& filename ) const;
 
     private:

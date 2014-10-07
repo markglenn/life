@@ -10,7 +10,8 @@ namespace life
     public:
         virtual ~archive( ) { }
         virtual std::string name( ) const = 0;
-        virtual std::unique_ptr<std::istream> open( const std::string& filename ) const = 0;
+        virtual std::unique_ptr<std::istream> open( const std::string& filename,
+                std::ios_base::openmode mode = std::ios_base::in ) const = 0;
         virtual bool exists( const std::string& filename ) const = 0;
     };
 
