@@ -11,11 +11,11 @@ using std::unique_ptr;
 namespace life
 {
     //////////////////////////////////////////////////////////////////////////
-    folder_archive::folder_archive( const std::string& folder )
+    folder_archive::folder_archive( std::string folder )
     //////////////////////////////////////////////////////////////////////////
     {
         error_code error_code;
-        _folder = boostfs::canonical( folder, error_code ).native( );
+        _folder = boostfs::canonical( std::move( folder ), error_code ).native( );
 
         if ( error_code )
             throw file_exception( error_code.message() );

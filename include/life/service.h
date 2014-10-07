@@ -11,8 +11,8 @@ namespace life
     class service
     {
     public:
-        service( const std::string& service_name, int priority ) :
-            _service_name( service_name ), _priority( priority ), _kernel( 0 ) { }
+        service( std::string service_name, int priority ) :
+            _service_name( std::move( service_name ) ), _priority( priority ), _kernel( 0 ) { }
 
         virtual ~service( ) { }
 

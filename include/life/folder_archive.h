@@ -8,7 +8,7 @@ namespace life
     class folder_archive : public archive
     {
     public:
-        folder_archive( const std::string& folder );
+        folder_archive( std::string folder );
 
         virtual ~folder_archive( ) { }
         virtual std::string name( ) const { return _folder; }

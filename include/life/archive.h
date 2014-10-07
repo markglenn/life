@@ -18,7 +18,7 @@ namespace life
     class file_exception : public std::exception
     {
     public:
-        file_exception( const std::string& message ) : error_message( message) { }
+        file_exception( std::string message ) : error_message( std::move( message ) ) { }
         ~file_exception( ) throw( ) {}
 
         const char *what( ) const throw( )
