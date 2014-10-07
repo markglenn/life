@@ -13,9 +13,8 @@ namespace life
     public:
         service( const std::string& service_name, int priority ) :
             _service_name( service_name ), _priority( priority ) { }
-        virtual ~service( ){ }
 
-        virtual const std::string& name( ) const { return _service_name; }
+        virtual ~service( ){ }
 
         /// Get the priority of the service for inserting into the kernel
         unsigned int priority( ) const { return _priority; }
@@ -26,14 +25,20 @@ namespace life
         virtual bool start( ) { return true; }
         virtual void stop( ) { }
         
+        /// Set the kernel owner for this service
         void set_owner( kernel* kernel ) { _kernel = kernel; }
+
+        /// Get the owning kernel
         kernel* owner( ) { return _kernel; }
         
+        /// Get the name of the service
+        const std::string& name( ) const { return _service_name; }
+
     private:
 
-        const std::string _service_name;
-        const unsigned int _priority;
-        kernel* _kernel;
+        const std::string   _service_name;
+        const unsigned int  _priority;
+        kernel*             _kernel;
     };
 }
 

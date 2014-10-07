@@ -34,7 +34,9 @@ namespace kernel_add_service
         life::kernel kernel;
 
         kernel.add_service( new NiceMock<mock_service>( 1 ) );
-        EXPECT_EQ(1, (*kernel.cbegin())->priority());
+
+        for( auto& service : kernel )
+            EXPECT_EQ(1, service->priority() );
     }
 
     TEST(kernel_add_service, adds_service_to_list_by_priority) {

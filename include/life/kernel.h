@@ -27,6 +27,9 @@ namespace life
         std::list< std::unique_ptr<service> >::const_iterator cbegin( ) const { return _services.cbegin(); }
         std::list< std::unique_ptr<service> >::const_iterator cend( ) const { return _services.cend(); }
 
+        std::list< std::unique_ptr<service> >::iterator begin( ) { return _services.begin(); }
+        std::list< std::unique_ptr<service> >::iterator end( ) { return _services.end(); }
+
         void run( );
 
     private:
