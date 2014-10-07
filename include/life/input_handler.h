@@ -8,23 +8,11 @@ namespace life
     class input_handler : public service
     {
     public:
-        input_handler( ) : service( 1000 ) {}
+        input_handler( ) : service( "Input Handler", 1000 ) {}
         virtual ~input_handler( ){ }
-
-        virtual std::string name( ) const
-        {
-            return "Input Handler";
-        }
 
         /// Update the service with the current time
         virtual bool update( const life::gametime& );
-
-        virtual bool start( kernel* );
-        virtual void stop( ) { }
-
-    private:
-
-        kernel* _kernel;
     };
 }
 #endif // _LIFE_INPUT_HANDLER_H_

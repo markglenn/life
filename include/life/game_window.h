@@ -14,14 +14,9 @@ namespace life
         game_window( );
         virtual ~game_window( );
 
-        virtual std::string name( ) const
-        {
-            return "Game Window";
-        }
-
         /// Update the service with the current time
         virtual bool update( const life::gametime& );
-        virtual bool start( kernel* );
+        virtual bool start( );
         virtual void stop( );
 
     private:

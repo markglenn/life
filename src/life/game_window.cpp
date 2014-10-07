@@ -5,7 +5,7 @@
 namespace life
 {
     ///////////////////////////////////////////////////////////////////////////
-    game_window::game_window( ) : service( 1000 ), _window( NULL )
+    game_window::game_window( ) : service( "Game Window", 1000 ), _window( NULL )
     ///////////////////////////////////////////////////////////////////////////
     {
     }
@@ -24,10 +24,9 @@ namespace life
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    bool game_window::start( kernel * kernel )
+    bool game_window::start( )
     ///////////////////////////////////////////////////////////////////////////
     {
-        std::cout << SDL_GetError() << std::endl;
         if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
             return false;
 

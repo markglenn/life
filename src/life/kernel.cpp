@@ -24,7 +24,8 @@ namespace life
     bool kernel::add_service( std::unique_ptr<service> service )
     //////////////////////////////////////////////////////////////////////////
     {
-        if (!service->start( this ) )
+        service->set_owner( this );
+        if (!service->start( ) )
             return false;
 
         int priority = service->priority( );
