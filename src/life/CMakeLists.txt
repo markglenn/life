@@ -10,6 +10,8 @@ add_library(life
   game_window.cpp
   input_handler.cpp
   sdl_istream_adapter.cpp
+  resource.cpp
+  texture.cpp
 )
 
 INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/lib/glm ${CMAKE_SOURCE_DIR}/include)
