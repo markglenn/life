@@ -5,7 +5,8 @@
 namespace life
 {
     ///////////////////////////////////////////////////////////////////////////
-    game_window::game_window( ) : service( "Game Window", 1000 ), _window( NULL )
+    game_window::game_window( )
+        : service{ "Game Window", 1000 }, _window{ nullptr }
     ///////////////////////////////////////////////////////////////////////////
     {
     }
@@ -33,7 +34,7 @@ namespace life
         _window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                 640, 480, SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI );
 
-        if( _window == NULL )
+        if( nullptr == _window )
             return false;
 
         SDL_GetWindowSurface( _window );

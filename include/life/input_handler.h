@@ -8,7 +8,7 @@ namespace life
     class input_handler : public service
     {
     public:
-        input_handler( ) : service( "Input Handler", 1000 ) {}
+        input_handler( ) : service{ "Input Handler", 1000 } {}
         virtual ~input_handler( ){ }
 
         /// Update the service with the current time

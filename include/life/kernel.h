@@ -36,7 +36,7 @@ namespace life
         void run( );
 
     private:
-        std::list< std::unique_ptr<service> > _services;
+        std::list<std::unique_ptr<service>> _services;
         bool _is_running;
     };
 }

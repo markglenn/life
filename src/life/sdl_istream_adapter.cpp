@@ -3,7 +3,7 @@
 namespace life
 {
     ///////////////////////////////////////////////////////////////////////////
-    Sint64 istream_seek( struct SDL_RWops *context, Sint64 offset, int whence)
+    Sint64 istream_seek( struct SDL_RWops *context, Sint64 offset, int whence )
     ///////////////////////////////////////////////////////////////////////////
     {
         auto stream = ( std::istream* )context->hidden.unknown.data1;
@@ -23,7 +23,7 @@ namespace life
                 break;
         }
 
-        return stream->fail( ) ? -1 : ( int )stream->tellg( );
+        return stream->fail( ) ? -1 : static_cast<Sint64>( stream->tellg( ) );
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -34,8 +34,8 @@ namespace life
         if ( size == 0 )
             return -1;
 
-        auto stream = ( std::istream* )context->hidden.unknown.data1;
-        stream->read( static_cast<char*>( ptr ), size * maxnum );
+        auto stream = static_cast<std::istream *>( context->hidden.unknown.data1 );
+        stream->read( static_cast<char *>( ptr ), size * maxnum );
 
         return stream->bad( ) ? -1 : stream->gcount( ) / size;
     }
@@ -51,18 +51,18 @@ namespace life
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    SDL_RWops *SDL_RWFromIStream( std::istream& stream )
+    SDL_RWops* SDL_RW_from_istream( std::istream& stream )
     ///////////////////////////////////////////////////////////////////////////
     {
-        SDL_RWops* rwops = SDL_AllocRW( );
+        auto rwops = SDL_AllocRW();
 
-        if( rwops )
+        if ( rwops ) 
         {
             rwops->seek = istream_seek;
             rwops->read = istream_read;
-            rwops->write = NULL;
+            rwops->write = nullptr;
             rwops->close = istream_close;
-            rwops->hidden.unknown.data1 = &stream;
+            rwops->hidden.unknown.data1 = static_cast<void *>( &stream );
         }
 
         return rwops;

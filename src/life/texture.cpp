@@ -8,7 +8,7 @@ namespace life
 {
     ///////////////////////////////////////////////////////////////////////////
     texture::texture( std::string path, std::shared_ptr<life::archive> archive )
-        : resource( std::move( path ), std::move( archive ) )
+        : resource{ std::move( path ), std::move( archive ) }
     ///////////////////////////////////////////////////////////////////////////
     {
     }
@@ -24,15 +24,13 @@ namespace life
     ///////////////////////////////////////////////////////////////////////////
     {
         auto stream = archive( )->open( path( ), ios::in | ios::binary );
+        auto surface = IMG_Load_RW( SDL_RW_from_istream( *stream ), 1 );
 
-        auto ops = SDL_RWFromIStream( *stream );
-
-        auto surface = IMG_Load_RW( ops, 1 );
-
-        if( surface == NULL )
+        if( !surface )
             return false;
 
         SDL_FreeSurface( surface );
+
         return true;
     }
 

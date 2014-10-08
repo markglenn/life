@@ -8,9 +8,9 @@ namespace life
 {
     //////////////////////////////////////////////////////////////////////////
     gametime::gametime( ) :
-        _start_time( high_resolution_clock::now( ) ),
-        _current_time( _start_time ),
-        _total_time( 0 ), _current_step( 0 )
+        _start_time{ high_resolution_clock::now( ) },
+        _current_time{ _start_time },
+        _total_time{ 0 }, _current_step{ 0 }
     //////////////////////////////////////////////////////////////////////////
     {
     }

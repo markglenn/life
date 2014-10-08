@@ -4,7 +4,7 @@ namespace life
 {
     //////////////////////////////////////////////////////////////////////////
     resource::resource( std::string path, std::shared_ptr<life::archive> archive )
-        : _path( std::move( path ) ), _archive( std::move( archive ) )
+        : _path{ std::move( path ) }, _archive{ std::move( archive ) }
     //////////////////////////////////////////////////////////////////////////
     {
     }
