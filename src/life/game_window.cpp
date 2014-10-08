@@ -1,5 +1,6 @@
 #include <life/game_window.h>
 #include <SDL.h>
+#include <SDL_image.h>
 #include <iostream>
 
 namespace life
@@ -37,6 +38,7 @@ namespace life
         if( nullptr == _window )
             return false;
 
+        IMG_Init( IMG_INIT_PNG || IMG_INIT_JPG );
         SDL_GetWindowSurface( _window );
 
         return true;

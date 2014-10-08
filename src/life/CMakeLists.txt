@@ -12,6 +12,7 @@ add_library(life
   sdl_istream_adapter.cpp
   resource.cpp
   texture.cpp
+  logger.cpp
 )
 
 INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/lib/glm ${CMAKE_SOURCE_DIR}/include)
