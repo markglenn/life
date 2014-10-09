@@ -3,13 +3,33 @@
 
 #include <sstream>
 
+#ifdef DEBUG
+    #define LOG(level) \
+        ::life::logger().get(life::log_level::level) \
+        << __FILE__ << ":" << __LINE__ << " - "
+#else
+    #define LOG(level) \
+        ::life::logger().get(life::log_level::level)
+#endif
+
 namespace life
 {
     enum class log_level
     {
-        info
+        debug,
+        info,
+        warn,
+        error,
+        fatal
     };
 
+    // Preferred log method:
+    //
+    // log(error) << "This is an error";
+    //
+    // To get:
+    //
+    // 2014-10-09 13:01:12 - error - src/life/texture.cpp:12 - This is an error
     class logger
     {
     public:

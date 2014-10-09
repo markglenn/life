@@ -3,16 +3,27 @@
 
 namespace life
 {
+    ///////////////////////////////////////////////////////////////////////////
     inline const char* to_string( log_level level )
+    ///////////////////////////////////////////////////////////////////////////
     {
         switch( level )
         {
+            case log_level::debug:
+                return "debug";
             case log_level::info:
                 return "info";
+            case log_level::warn:
+                return "warn";
+            case log_level::error:
+                return "error";
+            case log_level::fatal:
+                return "fatal";
         }
 
         return "";
     }
+
     ///////////////////////////////////////////////////////////////////////////
     logger::logger( )
     ///////////////////////////////////////////////////////////////////////////
@@ -35,9 +46,8 @@ namespace life
         // Current time
         std::time_t t = std::time(nullptr);
 
-        _os << "- "
-            << std::put_time( std::localtime( &t ), "%c %Z" )
-            << " " << to_string( level ) << ": ";
+        _os << std::put_time( std::localtime( &t ), "%F %T" )
+            << " - " << to_string( level ) << " - ";
             
         return _os;
     }

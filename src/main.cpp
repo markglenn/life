@@ -9,7 +9,6 @@
 int main()
 {
     life::kernel k;
-    life::logger().get() << "Hello";
 
     k.add_service( std::make_unique<life::game_window>( ) );
     k.add_service( std::make_unique<life::input_handler>( ) );

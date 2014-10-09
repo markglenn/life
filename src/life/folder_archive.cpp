@@ -1,4 +1,5 @@
 #include <life/folder_archive.h>
+#include <life/logger.h>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <fstream>
@@ -18,7 +19,10 @@ namespace life
         _folder = boostfs::canonical( std::move( folder ), error_code ).native( );
 
         if ( error_code )
+        {
+            LOG(fatal) << "Could not find path: " << folder;
             throw file_exception( error_code.message() );
+        }
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -30,7 +34,10 @@ namespace life
         auto file = std::make_unique<boostfs::ifstream>( path );
 
         if ( !file->is_open() )
+        {
+            LOG(error) << "Could not open file: " << path;
             throw file_exception( "No such file or directory" );
+        }
 
         return unique_ptr<std::istream>{ std::move( file ) };
     }

@@ -1,3 +1,4 @@
+#include <life/logger.h>
 #include <life/texture.h>
 #include <life/sdl_istream_adapter.h>
 #include <SDL_image.h>
@@ -27,7 +28,10 @@ namespace life
         auto surface = IMG_Load_RW( SDL_RW_from_istream( *stream ), 1 );
 
         if( !surface )
+        {
+            LOG(error) << "Could not load surface: " << path( ) << std::endl;
             return false;
+        }
 
         SDL_FreeSurface( surface );
 
