@@ -8,8 +8,10 @@ using std::ios;
 namespace life
 {
     ///////////////////////////////////////////////////////////////////////////
-    texture::texture( std::string path, std::shared_ptr<life::archive> archive )
-        : resource{ std::move( path ), std::move( archive ) }
+    texture::texture( std::shared_ptr<life::device> device, std::string path,
+            std::shared_ptr<life::archive> archive )
+        : resource{ std::move( path ), std::move( archive ) },
+        _device{ std::move( device ) }
     ///////////////////////////////////////////////////////////////////////////
     {
     }

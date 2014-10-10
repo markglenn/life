@@ -11,11 +11,14 @@ int main()
     LOG(info) << "Started Life";
     life::kernel k;
 
-    k.add_service( std::make_unique<life::game_window>( ) );
+    auto window = std::make_unique<life::game_window>( );
+    auto device = window->device( );
+
+    k.add_service( std::move( window ) );
     k.add_service( std::make_unique<life::input_handler>( ) );
 
     auto assets = std::make_shared<life::folder_archive>( "../assets" );
-    life::texture font( "font.png", assets );
+    life::texture font( device, "font.png", assets );
 
     if ( font.load( ) )
         LOG( info ) << "Font file loaded successfully";
