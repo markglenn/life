@@ -7,21 +7,11 @@ namespace life
     inline const char* to_string( log_level level )
     ///////////////////////////////////////////////////////////////////////////
     {
-        switch( level )
-        {
-            case log_level::debug:
-                return "debug";
-            case log_level::info:
-                return "info";
-            case log_level::warn:
-                return "warn";
-            case log_level::error:
-                return "error";
-            case log_level::fatal:
-                return "fatal";
-        }
+        static const char* const buffer[] = {
+            "debug", "info", "warn", "error", "fatal"
+        };
 
-        return "";
+        return buffer[ static_cast<int>( level ) ];
     }
 
     ///////////////////////////////////////////////////////////////////////////

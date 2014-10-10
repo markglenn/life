@@ -16,7 +16,9 @@ int main()
     life::texture t( "font.png",
             std::make_shared<life::folder_archive>( "../assets" ) );
 
-    std::cout << t.load( ) << std::endl;
+    if ( t.load( ) )
+        LOG( info ) << "Font file loaded successfully";
+
     //k.run( );
 
     return 0;
