@@ -8,18 +8,21 @@
 
 int main()
 {
+    LOG(info) << "Started Life";
     life::kernel k;
 
     k.add_service( std::make_unique<life::game_window>( ) );
     k.add_service( std::make_unique<life::input_handler>( ) );
 
-    life::texture t( "font.png",
-            std::make_shared<life::folder_archive>( "../assets" ) );
+    auto assets = std::make_shared<life::folder_archive>( "../assets" );
+    life::texture font( "font.png", assets );
 
-    if ( t.load( ) )
+    if ( font.load( ) )
         LOG( info ) << "Font file loaded successfully";
 
     //k.run( );
 
+    font.unload( );
+    LOG(info) << "Ended Life";
     return 0;
 }
