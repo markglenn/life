@@ -19,6 +19,7 @@ namespace life
 
     private:
 
+        SDL_Texture* _texture;
         std::shared_ptr<life::device> _device;
     };
 }

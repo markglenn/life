@@ -18,7 +18,7 @@ namespace life
         auto service_count( ) const { return _services.size(); }
 
         /// Add a service to the running kernel
-        bool add_service( std::unique_ptr<service> );
+        bool add_service( const std::shared_ptr<service>& );
         bool add_service( service* service )
         {
             return add_service( std::unique_ptr<life::service>( service ) );
@@ -36,7 +36,7 @@ namespace life
         void run( );
 
     private:
-        std::list<std::unique_ptr<service>> _services;
+        std::list<std::shared_ptr<service>> _services;
         bool _is_running;
     };
 }

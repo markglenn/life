@@ -6,26 +6,28 @@
 #include <life/folder_archive.h>
 #include <life/logger.h>
 
-int main()
+int main( )
 {
-    LOG(info) << "Started Life";
-    life::kernel k;
+    LOG( info ) << "Started Life";
 
-    auto window = std::make_unique<life::game_window>( );
+    auto window = std::make_shared<life::game_window>( );
+    life::kernel kernel;
+
+    kernel.add_service( window );
+    kernel.add_service( std::make_shared<life::input_handler>( ) );
+
     auto device = window->device( );
 
-    k.add_service( std::move( window ) );
-    k.add_service( std::make_unique<life::input_handler>( ) );
-
     auto assets = std::make_shared<life::folder_archive>( "../assets" );
-    life::texture font( device, "font.png", assets );
+    life::texture font{ device, "font.png", assets };
 
     if ( font.load( ) )
         LOG( info ) << "Font file loaded successfully";
 
-    //k.run( );
+    //kernel.run( );
 
     font.unload( );
-    LOG(info) << "Ended Life";
+    LOG( info ) << "Ended Life";
+
     return 0;
 }

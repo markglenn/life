@@ -21,7 +21,7 @@ namespace life
     }
 
     //////////////////////////////////////////////////////////////////////////
-    bool kernel::add_service( std::unique_ptr<service> service )
+    bool kernel::add_service( const std::shared_ptr<service>& service )
     //////////////////////////////////////////////////////////////////////////
     {
         service->set_owner( this );
@@ -32,9 +32,9 @@ namespace life
 
         // Find where to put the service
         auto pos = std::find_if(
-            _services.begin(),
-            _services.end(),
-            [priority]( auto& s ) -> bool { return s->priority() > priority; }
+            _services.cbegin( ),
+            _services.cend( ),
+            [priority]( const auto& s ) -> bool { return s->priority() > priority; }
         );
 
         _services.insert(pos, std::move( service ) );

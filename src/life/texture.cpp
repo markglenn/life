@@ -9,9 +9,10 @@ namespace life
 {
     ///////////////////////////////////////////////////////////////////////////
     texture::texture( std::shared_ptr<life::device> device, std::string path,
-            std::shared_ptr<life::archive> archive )
-        : resource{ std::move( path ), std::move( archive ) },
-        _device{ std::move( device ) }
+            std::shared_ptr<life::archive> archive ) :
+        resource{ std::move( path ), std::move( archive ) },
+        _device{ std::move( device ) },
+        _texture{ nullptr }
     ///////////////////////////////////////////////////////////////////////////
     {
     }
@@ -35,6 +36,7 @@ namespace life
             return false;
         }
 
+        _texture = SDL_CreateTextureFromSurface( _device->renderer( ), surface );
         SDL_FreeSurface( surface );
 
         return true;
@@ -44,6 +46,9 @@ namespace life
     bool texture::unload( )
     ///////////////////////////////////////////////////////////////////////////
     {
+        SDL_DestroyTexture( _texture );
+        _texture = nullptr;
+
         return true;
     }
 }
