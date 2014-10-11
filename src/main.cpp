@@ -5,6 +5,7 @@
 #include <life/texture.h>
 #include <life/folder_archive.h>
 #include <life/logger.h>
+#include <life/scene.h>
 
 int main( )
 {
@@ -18,13 +19,16 @@ int main( )
 
     auto device = window->device( );
 
+    auto s = life::scene( device );
+    
+    kernel.add_service( std::make_shared<life::scene>( device ) );
     auto assets = std::make_shared<life::folder_archive>( "../assets" );
     life::texture font{ device, "font.png", assets };
 
     if ( font.load( ) )
         LOG( info ) << "Font file loaded successfully";
 
-    //kernel.run( );
+    kernel.run( );
 
     font.unload( );
     LOG( info ) << "Ended Life";

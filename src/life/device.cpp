@@ -3,7 +3,8 @@
 namespace life
 {
     ///////////////////////////////////////////////////////////////////////////
-    device::device( SDL_Renderer* renderer ) : _renderer{ renderer }
+    device::device( life::game_window* window, SDL_Renderer* renderer ) :
+        _window{ window }, _renderer{ renderer }
     ///////////////////////////////////////////////////////////////////////////
     {
     }

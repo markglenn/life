@@ -56,7 +56,7 @@ namespace life
             return false;
         }
 
-        _device = std::make_shared<life::device>( renderer );
+        _device = std::make_shared<life::device>( this, renderer );
 
         return true;
     }

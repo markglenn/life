@@ -21,7 +21,8 @@ namespace life
         virtual bool start( );
         virtual void stop( );
 
-        const auto& device( ) const { return _device; }
+        SDL_Window* window( ) const { return _window; }
+        auto& device( ) const { return _device; }
 
     private:
 

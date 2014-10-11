@@ -32,12 +32,19 @@ namespace life
 
         if( !surface )
         {
-            LOG(error) << "Could not load surface: " << path( ) << std::endl;
+            LOG(error) << "Could not load surface: " << path( );
             return false;
         }
 
         _texture = SDL_CreateTextureFromSurface( _device->renderer( ), surface );
+
         SDL_FreeSurface( surface );
+
+        if( !_texture )
+        {
+            LOG(error) << "Could not create texture from image: " << path( );
+            return false;
+        }
 
         return true;
     }
@@ -46,6 +53,10 @@ namespace life
     bool texture::unload( )
     ///////////////////////////////////////////////////////////////////////////
     {
+        // Don't unload if the texture isn't loaded
+        if ( nullptr == _texture )
+            return false;
+
         SDL_DestroyTexture( _texture );
         _texture = nullptr;
 
