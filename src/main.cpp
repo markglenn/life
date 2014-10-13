@@ -6,6 +6,7 @@
 #include <life/folder_archive.h>
 #include <life/logger.h>
 #include <life/scene.h>
+#include <life/fixed_step_service.h>
 
 int main( )
 {
@@ -16,6 +17,7 @@ int main( )
 
     kernel.add_service( window );
     kernel.add_service( std::make_shared<life::input_handler>( ) );
+    kernel.add_service( std::make_shared<life::fixed_step_service>( 30 ) );
 
     auto device = window->device( );
 
