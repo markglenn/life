@@ -56,7 +56,14 @@ namespace life
             return false;
         }
 
-        _device = std::make_shared<life::device>( this, renderer );
+        auto context = SDL_GL_CreateContext( _window );
+        if ( nullptr == context )
+        {
+            LOG(fatal) << "Could not initialize GL Context: " << SDL_GetError( );
+            return false;
+        }
+
+        _device = std::make_shared<life::device>( this, renderer, context );
 
         return true;
     }
@@ -65,6 +72,7 @@ namespace life
     void game_window::stop( )
     ///////////////////////////////////////////////////////////////////////////
     {
+        SDL_GL_DeleteContext( _device->context( ) );
         SDL_DestroyRenderer( _device->renderer( ) );
         SDL_DestroyWindow( _window );
         SDL_Quit( );

@@ -29,4 +29,14 @@ namespace life
 
         _current_step = _total_time - previous_time;
     }
+
+    //////////////////////////////////////////////////////////////////////////
+    double gametime::time_since_start_of_frame( ) const
+    //////////////////////////////////////////////////////////////////////////
+    {
+        return
+            duration_cast<microseconds>(
+                high_resolution_clock::now( ) - _current_time
+            ).count( ) / microseconds_in_seconds;
+    }
 }

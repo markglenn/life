@@ -9,15 +9,17 @@ namespace life
     class device
     {
     public:
-        device( game_window* window, SDL_Renderer* renderer );
+        device( game_window* window, SDL_Renderer* renderer, SDL_GLContext context );
         virtual ~device( );
         
-        SDL_Renderer* renderer( ) const { return _renderer; }
-        game_window* window( ) const { return _window; }
+        auto renderer( ) const { return _renderer; }
+        auto context( ) const { return _context; }
+        auto window( ) const { return _window; }
 
     private:
         game_window* _window;
         SDL_Renderer* _renderer;
+        SDL_GLContext _context;
     };
 }
 

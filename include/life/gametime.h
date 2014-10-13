@@ -21,6 +21,7 @@ namespace life
         }
 
         void update( );
+        double time_since_start_of_frame( ) const;
 
     private:
 
