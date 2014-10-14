@@ -11,6 +11,7 @@ set(test_SOURCE
   life/gametime_tests.cpp
   life/folder_archive_tests.cpp
   life/composite_archive_tests.cpp
+  life/fixed_step_service_tests.cpp
 )
 
 add_executable(run_tests ${test_SOURCE})

@@ -36,6 +36,4 @@ int main( )
 
     font.unload( );
     LOG( info ) << "Ended Life";
-
-    return 0;
 }

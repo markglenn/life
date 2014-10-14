@@ -16,19 +16,21 @@ namespace life
     bool fixed_step_service::update( const life::gametime& time )
     ////////////////////////////////////////////////////////////////////////////
     {
+        // Standard delay time if application takes no time at all
         int delay_time = 1000 / _frames_per_second;
 
         auto time_since_start_of_frame = time.time_since_start_of_frame( );
 
+        // Adjust delay time for how much time has been spent on the frame so far
         if ( time_since_start_of_frame > 0 )
             delay_time -= static_cast<int>( time_since_start_of_frame * 1000 );
 
+        // If we have time to kill, sleep this thread
         if (delay_time > 0 )
+        {
+            LOG(info) << delay_time;
             SDL_Delay( delay_time );
-
-        auto frame_time = 1.0 / time.time_since_start_of_frame( );
-
-        LOG(info) << frame_time;
+        }
 
         return true;
     }
