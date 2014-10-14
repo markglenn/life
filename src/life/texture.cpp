@@ -10,7 +10,8 @@ namespace life
     ///////////////////////////////////////////////////////////////////////////
     texture::texture( std::shared_ptr<life::device> device, std::string path,
             std::shared_ptr<life::archive> archive ) :
-        resource{ std::move( path ), std::move( archive ) },
+        _path{ std::move( path ) },
+        _archive{ std::move( archive ) },
         _device{ std::move( device ) },
         _texture{ nullptr }
     ///////////////////////////////////////////////////////////////////////////
@@ -27,14 +28,14 @@ namespace life
     bool texture::load( )
     ///////////////////////////////////////////////////////////////////////////
     {
-        if ( auto archive_ptr = archive( ).lock( ) )
+        if ( auto archive_ptr = _archive.lock( ) )
         {
-            auto stream = archive_ptr->open( path( ), ios::in | ios::binary );
+            auto stream = archive_ptr->open( _path, ios::in | ios::binary );
             auto surface = IMG_Load_RW( SDL_RW_from_istream( *stream ), 1 );
 
             if( !surface )
             {
-                LOG(error) << "Could not load surface: " << path( );
+                LOG(error) << "Could not load surface: " << _path;
                 return false;
             }
 
@@ -44,7 +45,7 @@ namespace life
 
             if( !_texture )
             {
-                LOG(error) << "Could not create texture from image: " << path( );
+                LOG(error) << "Could not create texture from image: " << _path;
                 return false;
             }
 
@@ -52,7 +53,7 @@ namespace life
         }
         else
         {
-            LOG(error) << "Archive has been closed for " << path( );
+            LOG(error) << "Archive has been closed for " << _path;
             return false;
         }
     }

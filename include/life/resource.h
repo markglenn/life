@@ -10,21 +10,11 @@ namespace life
     class resource
     {
     public:
-        resource( const std::string path, const std::weak_ptr<life::archive> archive );
-        virtual ~resource( );
+        resource( ) { }
+        virtual ~resource( ) { }
 
         virtual bool load( ) = 0;
         virtual bool unload( ) = 0;
-
-    protected:
-        const auto& archive( ) const { return _archive; }
-        const auto& path( ) const {
-            return _path;
-        }
-
-    private:
-        const std::string _path;
-        const std::weak_ptr<life::archive> _archive;
     };
 }
 

@@ -10,7 +10,6 @@ add_library(life
   game_window.cpp
   input_handler.cpp
   sdl_istream_adapter.cpp
-  resource.cpp
   texture.cpp
   logger.cpp
   device.cpp

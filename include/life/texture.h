@@ -18,6 +18,8 @@ namespace life
         virtual bool unload( );
 
     private:
+        const std::string _path;
+        const std::weak_ptr<life::archive> _archive;
 
         SDL_Texture* _texture;
         std::shared_ptr<life::device> _device;
