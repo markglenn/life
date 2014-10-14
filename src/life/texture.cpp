@@ -27,26 +27,34 @@ namespace life
     bool texture::load( )
     ///////////////////////////////////////////////////////////////////////////
     {
-        auto stream = archive( )->open( path( ), ios::in | ios::binary );
-        auto surface = IMG_Load_RW( SDL_RW_from_istream( *stream ), 1 );
-
-        if( !surface )
+        if ( auto archive_ptr = archive( ).lock( ) )
         {
-            LOG(error) << "Could not load surface: " << path( );
+            auto stream = archive_ptr->open( path( ), ios::in | ios::binary );
+            auto surface = IMG_Load_RW( SDL_RW_from_istream( *stream ), 1 );
+
+            if( !surface )
+            {
+                LOG(error) << "Could not load surface: " << path( );
+                return false;
+            }
+
+            _texture = SDL_CreateTextureFromSurface( _device->renderer( ), surface );
+
+            SDL_FreeSurface( surface );
+
+            if( !_texture )
+            {
+                LOG(error) << "Could not create texture from image: " << path( );
+                return false;
+            }
+
+            return true;
+        }
+        else
+        {
+            LOG(error) << "Archive has been closed for " << path( );
             return false;
         }
-
-        _texture = SDL_CreateTextureFromSurface( _device->renderer( ), surface );
-
-        SDL_FreeSurface( surface );
-
-        if( !_texture )
-        {
-            LOG(error) << "Could not create texture from image: " << path( );
-            return false;
-        }
-
-        return true;
     }
 
     ///////////////////////////////////////////////////////////////////////////

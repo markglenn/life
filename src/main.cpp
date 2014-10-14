@@ -1,5 +1,5 @@
 #include <iostream>
-#include "life/kernel.h"
+#include <life/kernel.h>
 #include <life/game_window.h>
 #include <life/input_handler.h>
 #include <life/texture.h>
@@ -12,8 +12,9 @@ int main( )
 {
     LOG( info ) << "Started Life";
 
-    auto window = std::make_shared<life::game_window>( );
     life::kernel kernel;
+
+    auto window = std::make_shared<life::game_window>( );
 
     kernel.add_service( window );
     kernel.add_service( std::make_shared<life::input_handler>( ) );
@@ -22,8 +23,9 @@ int main( )
     auto device = window->device( );
 
     auto s = life::scene( device );
-    
+
     kernel.add_service( std::make_shared<life::scene>( device ) );
+
     auto assets = std::make_shared<life::folder_archive>( "../assets" );
     life::texture font{ device, "font.png", assets };
 

@@ -31,25 +31,28 @@ namespace life
     ///////////////////////////////////////////////////////////////////////////
     {
         if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+        {
+            LOG(fatal) << "Could not initialize SDL: " << SDL_GetError( );
             return false;
+        }
 
         _window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                 640, 480, SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI );
 
-        if( nullptr == _window )
+        if( !_window )
         {
             LOG(fatal) << "Could not create window: " << SDL_GetError( );
             return false;
         }
 
         auto renderer = SDL_CreateRenderer( _window, -1, SDL_RENDERER_ACCELERATED );
-        if ( nullptr == renderer )
+        if ( !renderer )
         {
             LOG(fatal) << "Could not create renderer: " << SDL_GetError( );
             return false;
         }
 
-        auto flags = IMG_INIT_PNG || IMG_INIT_JPG;
+        auto flags = IMG_INIT_PNG | IMG_INIT_JPG;
         if( !( IMG_Init( flags ) & flags ) )
         {
             LOG(fatal) << "Could not initialize image loader: " << IMG_GetError( );
@@ -57,7 +60,7 @@ namespace life
         }
 
         auto context = SDL_GL_CreateContext( _window );
-        if ( nullptr == context )
+        if( !context )
         {
             LOG(fatal) << "Could not initialize GL Context: " << SDL_GetError( );
             return false;
@@ -78,4 +81,3 @@ namespace life
         SDL_Quit( );
     }
 }
-
