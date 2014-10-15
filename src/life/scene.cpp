@@ -34,7 +34,8 @@ namespace life
 
         glClearColor( 1.0, 1.0, 1.0, 0 );
         glGenBuffers(1, &buffer );
-        auto b = hardware_buffer{ buffer, buffer_usage::static_draw };
+        auto b = hardware_buffer{ buffer, buffer_usage::STATIC_DRAW };
+        b.attributes( 0, 3, element_type::FLOAT, 0, true );
 
         return true;
     }

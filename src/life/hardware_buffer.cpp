@@ -4,7 +4,7 @@
 namespace life
 {
     ////////////////////////////////////////////////////////////////////////////
-    inline const GLenum gl_usage( const buffer_usage& usage )
+    inline const GLenum convert( const buffer_usage& usage )
     ////////////////////////////////////////////////////////////////////////////
     {
         static GLenum const buffer[] = {
@@ -12,7 +12,18 @@ namespace life
         };
 
         return buffer[ static_cast<int>( usage ) ];
+    }
 
+    ////////////////////////////////////////////////////////////////////////////
+    inline const GLenum convert( const element_type& type )
+    ////////////////////////////////////////////////////////////////////////////
+    {
+        static GLenum const buffer[] = {
+            GL_BYTE, GL_UNSIGNED_BYTE, GL_SHORT, GL_UNSIGNED_SHORT,
+            GL_INT, GL_UNSIGNED_INT, GL_FLOAT, GL_DOUBLE
+        };
+
+        return buffer[ static_cast<int>( type ) ];
     }
     ////////////////////////////////////////////////////////////////////////////
     hardware_buffer::hardware_buffer( GLuint buffer, buffer_usage usage ) :
@@ -34,7 +45,21 @@ namespace life
     ////////////////////////////////////////////////////////////////////////////
     {
         glBindBuffer( GL_ARRAY_BUFFER, _buffer );
-        glBufferData( GL_ARRAY_BUFFER, stride * count, buffer, gl_usage( _usage ) );
+        glBufferData( GL_ARRAY_BUFFER, stride * count, buffer, convert( _usage ) );
+
+        return check_gl_error( );
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    bool hardware_buffer::attributes( unsigned int index, const unsigned int size,
+            const element_type& type, std::size_t stride, bool divisor )
+    ////////////////////////////////////////////////////////////////////////////
+    {
+        glEnableVertexAttribArray( index );
+        glVertexAttribPointer( index, size, convert( type ), GL_FALSE, stride, 0 );
+
+        if( divisor )
+            glVertexAttribDivisorARB( index, 1 );
 
         return check_gl_error( );
     }
