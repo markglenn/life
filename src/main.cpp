@@ -7,6 +7,7 @@
 #include <life/logger.h>
 #include <life/scene.h>
 #include <life/fixed_step_service.h>
+#include <life/hardware_buffer.h>
 
 int main( )
 {
