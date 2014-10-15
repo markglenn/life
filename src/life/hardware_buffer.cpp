@@ -1,10 +1,22 @@
+#include <life.h>
 #include <life/hardware_buffer.h>
 
 namespace life
 {
     ////////////////////////////////////////////////////////////////////////////
-    hardware_buffer::hardware_buffer( GLuint buffer ) :
-        _buffer_object{ buffer }
+    inline const GLenum gl_usage( const buffer_usage& usage )
+    ////////////////////////////////////////////////////////////////////////////
+    {
+        static GLenum const buffer[] = {
+            GL_STATIC_DRAW, GL_DYNAMIC_DRAW, GL_STREAM_DRAW
+        };
+
+        return buffer[ static_cast<int>( usage ) ];
+
+    }
+    ////////////////////////////////////////////////////////////////////////////
+    hardware_buffer::hardware_buffer( GLuint buffer, buffer_usage usage ) :
+        _buffer{ buffer }, _usage{ usage }
     ////////////////////////////////////////////////////////////////////////////
     {
     }
@@ -13,16 +25,17 @@ namespace life
     hardware_buffer::~hardware_buffer( )
     ////////////////////////////////////////////////////////////////////////////
     {
-        glDeleteBuffers( 1, &_buffer_object );
+        glDeleteBuffers( 1, &_buffer );
+        check_gl_error( );
     }
 
     ////////////////////////////////////////////////////////////////////////////
-    bool hardware_buffer::write( const void* buffer, std::size_t size, int count )
+    bool hardware_buffer::write( const void* buffer, std::size_t stride, int count )
     ////////////////////////////////////////////////////////////////////////////
     {
-        glBindBuffer( GL_ARRAY_BUFFER, _buffer_object );
-        glBufferData( GL_ARRAY_BUFFER, size, count, GL_STATIC_DRAW );
+        glBindBuffer( GL_ARRAY_BUFFER, _buffer );
+        glBufferData( GL_ARRAY_BUFFER, stride * count, buffer, gl_usage( _usage ) );
 
-        return false;
+        return check_gl_error( );
     }
 }

@@ -27,10 +27,7 @@ namespace life
 
         // If we have time to kill, sleep this thread
         if (delay_time > 0 )
-        {
-            LOG(info) << delay_time;
             SDL_Delay( delay_time );
-        }
 
         return true;
     }
