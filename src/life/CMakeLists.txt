@@ -17,6 +17,7 @@ add_library(life
   fixed_step_service.cpp
   hardware_buffer.cpp
   opengl_error_handler.cpp
+  cell.cpp
 )
 
 INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/lib/glm ${CMAKE_SOURCE_DIR}/include)

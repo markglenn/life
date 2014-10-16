@@ -8,6 +8,7 @@
 #include <life/scene.h>
 #include <life/fixed_step_service.h>
 #include <life/hardware_buffer.h>
+#include <life/cell.h>
 
 int main( )
 {
@@ -29,6 +30,9 @@ int main( )
 
     auto assets = std::make_shared<life::folder_archive>( "../assets" );
     life::texture font{ device, "font.png", assets };
+    life::cell cell;
+
+    cell.load( );
 
     if ( font.load( ) )
         LOG( info ) << "Font file loaded successfully";
