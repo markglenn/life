@@ -7,8 +7,7 @@
 #include <life/logger.h>
 #include <life/scene.h>
 #include <life/fixed_step_service.h>
-#include <life/hardware_buffer.h>
-#include <life/cell.h>
+#include <life/shader.h>
 
 int main( )
 {
@@ -30,14 +29,14 @@ int main( )
 
     auto assets = std::make_shared<life::folder_archive>( "../assets" );
     life::texture font{ device, "font.png", assets };
-    life::cell cell;
+    life::shader vertex_shader( assets, "shaders/cell.vert", life::shader_type::VERTEX_SHADER );
 
-    cell.load( );
+    vertex_shader.load( );
 
     if ( font.load( ) )
         LOG( info ) << "Font file loaded successfully";
 
-    kernel.run( );
+    //kernel.run( );
 
     font.unload( );
     LOG( info ) << "Ended Life";

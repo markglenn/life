@@ -59,7 +59,7 @@ namespace life
         glVertexAttribPointer( index, size, convert( type ), GL_FALSE, stride, 0 );
 
         if( divisor )
-            glVertexAttribDivisorARB( index, 1 );
+            glVertexAttribDivisor( index, 1 );
 
         return check_gl_error( );
     }

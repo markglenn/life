@@ -1,8 +1,6 @@
 #ifndef _LIFE_CELL_H_
 #define _LIFE_CELL_H_
 
-#include <OpenGL/gl.h>
-
 #include <life.h>
 #include <life/resource.h>
 

@@ -1,4 +1,4 @@
-#include <SDL.h>
+#include <SDL2/sdl.h>
 #include <life/logger.h>
 #include <life/fixed_step_service.h>
 

@@ -2,7 +2,7 @@
 #define _LIFE_SDL_ISTREAM_ADAPTER_H_
 
 #include <iostream>
-#include <SDL.h>
+#include <SDL2/sdl.h>
 
 namespace life
 {

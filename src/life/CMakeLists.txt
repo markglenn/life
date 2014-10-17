@@ -16,6 +16,7 @@ add_library(life
   scene.cpp
   fixed_step_service.cpp
   hardware_buffer.cpp
+  shader.cpp
   opengl_error_handler.cpp
   cell.cpp
 )

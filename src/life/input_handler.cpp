@@ -1,6 +1,6 @@
 #include <life/kernel.h>
 #include <life/input_handler.h>
-#include <SDL.h>
+#include <SDL2/sdl.h>
 
 namespace life
 {

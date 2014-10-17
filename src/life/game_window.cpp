@@ -1,6 +1,7 @@
+#include <life.h>
 #include <life/game_window.h>
 #include <life/logger.h>
-#include <SDL.h>
+#include <SDL2/sdl.h>
 #include <SDL_image.h>
 #include <iostream>
 
@@ -36,19 +37,19 @@ namespace life
             return false;
         }
 
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+
+        SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+        SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 32);
+        
         _window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                 640, 480, SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI );
 
         if( !_window )
         {
             LOG(fatal) << "Could not create window: " << SDL_GetError( );
-            return false;
-        }
-
-        auto renderer = SDL_CreateRenderer( _window, -1, SDL_RENDERER_ACCELERATED );
-        if ( !renderer )
-        {
-            LOG(fatal) << "Could not create renderer: " << SDL_GetError( );
             return false;
         }
 
@@ -65,9 +66,16 @@ namespace life
             LOG(fatal) << "Could not initialize GL Context: " << SDL_GetError( );
             return false;
         }
+        
+        _device = std::make_shared<life::device>( this, context );
 
-        _device = std::make_shared<life::device>( this, renderer, context );
+        int version;
+        SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &version );
+        LOG(fatal) << version;
 
+        SDL_GL_GetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, &version );
+        LOG(fatal) << version;
+        LOG(fatal) << glGetString(GL_VERSION);
         return true;
     }
 
@@ -76,7 +84,6 @@ namespace life
     ///////////////////////////////////////////////////////////////////////////
     {
         SDL_GL_DeleteContext( _device->context( ) );
-        SDL_DestroyRenderer( _device->renderer( ) );
         SDL_DestroyWindow( _window );
         SDL_Quit( );
     }

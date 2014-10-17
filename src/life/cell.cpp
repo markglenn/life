@@ -28,9 +28,11 @@ namespace life
             { 1.0f, 2.0f }
         };
 
+        // 0 - 1
+        // | \ *
+        // 2 - 3
         const unsigned int indices[] = {
-            0, 1, 2,
-            1, 3, 2
+            0, 1, 3, 2
         };
 
         // Initialize the rectangle positions
@@ -39,7 +41,7 @@ namespace life
 
         glEnableVertexAttribArray( VERTEX_BUFFER_POSITION );
         glVertexAttribPointer( VERTEX_BUFFER_POSITION, 2, GL_FLOAT, GL_FALSE, sizeof( glm::vec2 ), 0 );
-        glVertexAttribDivisorARB( VERTEX_BUFFER_POSITION, 1 );
+        glVertexAttribDivisor( VERTEX_BUFFER_POSITION, 1 );
 
         // Initialize the index buffer
         glBindBuffer( GL_ARRAY_BUFFER, _buffers[ INDEX_BUFFER_POSITION ] );

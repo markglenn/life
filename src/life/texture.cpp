@@ -39,7 +39,7 @@ namespace life
                 return false;
             }
 
-            _texture = SDL_CreateTextureFromSurface( _device->renderer( ), surface );
+            //_texture = SDL_CreateTextureFromSurface( _device->renderer( ), surface );
 
             SDL_FreeSurface( surface );
 

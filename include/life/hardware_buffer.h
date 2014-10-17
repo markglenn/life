@@ -2,7 +2,7 @@
 #define _LIFE_HARDWARE_BUFFER_H_
 
 #include <cstddef>
-#include <OpenGL/gl.h>
+#include <life.h>
 
 namespace life
 {
