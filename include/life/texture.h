@@ -3,6 +3,7 @@
 
 #include <memory>
 
+#include <life.h>
 #include <life/resource.h>
 #include <life/device.h>
 
@@ -20,9 +21,9 @@ namespace life
     private:
         const std::string _path;
         const std::weak_ptr<life::archive> _archive;
+        const std::shared_ptr<life::device> _device;
 
-        SDL_Texture* _texture;
-        std::shared_ptr<life::device> _device;
+        GLuint _texture;
     };
 }
 

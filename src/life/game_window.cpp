@@ -43,7 +43,7 @@ namespace life
 
         SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
         SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 32);
-        
+
         _window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                 640, 480, SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI );
 
@@ -66,16 +66,10 @@ namespace life
             LOG(fatal) << "Could not initialize GL Context: " << SDL_GetError( );
             return false;
         }
-        
+
         _device = std::make_shared<life::device>( this, context );
 
-        int version;
-        SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &version );
-        LOG(fatal) << version;
-
-        SDL_GL_GetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, &version );
-        LOG(fatal) << version;
-        LOG(fatal) << glGetString(GL_VERSION);
+        LOG(info) << "OpenGL " << glGetString( GL_VERSION );
         return true;
     }
 

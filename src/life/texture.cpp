@@ -13,7 +13,7 @@ namespace life
         _path{ std::move( path ) },
         _archive{ std::move( archive ) },
         _device{ std::move( device ) },
-        _texture{ nullptr }
+        _texture{ 0 }
     ///////////////////////////////////////////////////////////////////////////
     {
     }
@@ -22,6 +22,19 @@ namespace life
     texture::~texture( )
     ///////////////////////////////////////////////////////////////////////////
     {
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    GLenum get_texture_format( GLint bpp )
+    ///////////////////////////////////////////////////////////////////////////
+    {
+        switch (bpp) {
+            case 4: return GL_RGBA;
+            case 3: return GL_RGB;
+        }
+
+        LOG( fatal ) << "Unsupported image format with " << bpp << " bytes per pixel";
+        return -1;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -39,15 +52,19 @@ namespace life
                 return false;
             }
 
-            //_texture = SDL_CreateTextureFromSurface( _device->renderer( ), surface );
+            auto bpp = surface->format->BytesPerPixel;
+            auto texture_format = get_texture_format( bpp );
+
+            glGenTextures( 1, &_texture );
+            glBindTexture( GL_TEXTURE_2D, _texture );
+
+            glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+            glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+
+            glTexImage2D( GL_TEXTURE_2D, 0, bpp, surface->w, surface->h, 0,
+                    texture_format, GL_UNSIGNED_BYTE, surface->pixels );
 
             SDL_FreeSurface( surface );
-
-            if( !_texture )
-            {
-                LOG(error) << "Could not create texture from image: " << _path;
-                return false;
-            }
 
             return true;
         }
@@ -63,12 +80,11 @@ namespace life
     ///////////////////////////////////////////////////////////////////////////
     {
         // Don't unload if the texture isn't loaded
-        if ( nullptr == _texture )
+        if ( 0 == _texture )
             return false;
 
-        SDL_DestroyTexture( _texture );
-        _texture = nullptr;
-
+        glDeleteTextures( 1, &_texture );
+        _texture = 0;
         return true;
     }
 }
