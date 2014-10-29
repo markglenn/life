@@ -47,7 +47,7 @@ namespace life
         glBindBuffer( GL_ARRAY_BUFFER, _buffers[ INDEX_BUFFER_POSITION ] );
         glBufferData( GL_ARRAY_BUFFER, sizeof( indices ), indices, GL_STATIC_DRAW );
 
-        return check_gl_error( );
+        return !check_gl_error( );
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -56,6 +56,6 @@ namespace life
     {
         glDeleteBuffers( 2, _buffers );
         
-        return check_gl_error( );
+        return !check_gl_error( );
     }
 }
