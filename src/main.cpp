@@ -29,9 +29,11 @@ int main( )
 
     auto assets = std::make_shared<life::folder_archive>( "../assets" );
     life::texture font{ device, "font.png", assets };
-    life::shader vertex_shader( assets, "shaders/cell.vert", life::shader_type::VERTEX_SHADER );
+    life::shader vertex_shader{ assets, "shaders/cell.vert", life::shader_type::VERTEX_SHADER };
+    life::shader fragment_shader{ assets, "shaders/cell.frag", life::shader_type::FRAGMENT_SHADER };
 
-    vertex_shader.load( );
+    LOG(error) << vertex_shader.load( );
+    LOG(error) << fragment_shader.load( );
 
     if ( font.load( ) )
         LOG( info ) << "Font file loaded successfully";

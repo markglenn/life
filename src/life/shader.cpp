@@ -55,7 +55,7 @@ namespace life
             }
         }
 
-        return check_gl_error( );
+        return !check_gl_error( );
     }
 
     ////////////////////////////////////////////////////////////////////////////
