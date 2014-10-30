@@ -3,13 +3,14 @@
 
 #include <life.h>
 #include <life/resource.h>
+#include <life/shader.h>
 
 namespace life
 {
     class cell : public resource
     {
     public:
-        cell( );
+        cell( std::shared_ptr<archive> assets );
         virtual ~cell( );
 
         virtual bool load( );
@@ -23,7 +24,11 @@ namespace life
             INDEX_BUFFER_POSITION
         };
 
+        GLuint _vertex_array_object;
         GLuint _buffers[2];
+
+        shader _vertex_shader;
+        shader _fragment_shader;
     };
 }
 

@@ -61,12 +61,12 @@ namespace life
             glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
             glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 
-            glTexImage2D( GL_TEXTURE_2D, 0, bpp, surface->w, surface->h, 0,
+            glTexImage2D( GL_TEXTURE_2D, 0, texture_format, surface->w, surface->h, 0,
                     texture_format, GL_UNSIGNED_BYTE, surface->pixels );
 
             SDL_FreeSurface( surface );
 
-            return true;
+            return !check_gl_error( );
         }
         else
         {
@@ -85,6 +85,7 @@ namespace life
 
         glDeleteTextures( 1, &_texture );
         _texture = 0;
-        return true;
+
+        return !check_gl_error( );
     }
 }
