@@ -3,13 +3,15 @@
 
 #include <life/device.h>
 #include <life/service.h>
+#include <life/archive.h>
+#include <life/cell.h>
 
 namespace life
 {
     class scene : public service
     {
     public:
-        scene( std::shared_ptr<life::device> device );
+        scene( std::shared_ptr<life::device> device, std::shared_ptr<life::archive> assets );
         virtual ~scene( );
 
         /// Update the service with the current time
@@ -20,6 +22,9 @@ namespace life
 
     protected:
         const std::shared_ptr<life::device> _device;
+        const std::shared_ptr<life::archive> _assets;
+
+        life::cell _cell;
     };
 }
 
